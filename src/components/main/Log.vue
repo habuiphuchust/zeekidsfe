@@ -6,7 +6,7 @@
       @tab-click="handleClick"
     >
       <el-tab-pane label="notice.log" name="first"><connlog></connlog></el-tab-pane>
-      <el-tab-pane label="modbus.log" name="second">modbus.log</el-tab-pane>
+      <el-tab-pane label="modbus.log" name="second"><modbuslog></modbuslog></el-tab-pane>
       <el-tab-pane label="conn.log" name="third"><connlog></connlog></el-tab-pane>
       <el-tab-pane label="knownhost.log" name="fourth">knownhost.log</el-tab-pane>
     </el-tabs>
@@ -15,6 +15,7 @@
   import { ref } from 'vue'
   import type { TabsPaneContext } from 'element-plus'
   import connlog from './connlog.vue';
+  import modbuslog from './modbuslog.vue'
   
   const activeName = ref('first')
   

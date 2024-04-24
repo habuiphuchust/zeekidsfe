@@ -1,7 +1,7 @@
 <script setup>
 import {  RouterLink } from 'vue-router'
-import Login from '../components/login/Login.vue'
-import Signup from '../components/signup/Signup.vue'
+import Login from '@/components/login/Login.vue'
+import Signup from '@/components/signup/Signup.vue'
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
