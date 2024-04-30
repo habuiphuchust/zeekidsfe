@@ -25,6 +25,7 @@ import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 import token from '@/until/token';
 import get from '@/api/get';
+import constants from '@/until/constants';
 
 
 // import { useUserStore } from '@/stores/user'
@@ -83,7 +84,7 @@ const labelPosition = ref<FormProps['labelPosition']>('top')
 const sendRequestLogin = async () => {
     let user = { username: ruleForm.username, password: ruleForm.pass }
     try {
-        const response = await post('http://localhost:8080/api/login', user)
+        const response = await post(constants.api.login, JSON.stringify(user))
         if (response.ok) {
             const data = await response.json();
             if (data?.username && data?.token) {

@@ -5,7 +5,7 @@
             <el-icon><icon-menu /></el-icon>
             <span>Log</span>
         </el-menu-item>
-        <el-menu-item index="2">
+        <el-menu-item index="2" @click="onClick('2')">
             <el-icon><icon-menu /></el-icon>
             <span>Config</span>
         </el-menu-item>
@@ -50,8 +50,12 @@ function onClick(key:string) {
         case "1":
             router.push("/log")
             break;
+        case "2":
+            router.push("/config")
+            break;
         case "3":
             router.push("/statistic")
+            break;
         default:
             break;
     }

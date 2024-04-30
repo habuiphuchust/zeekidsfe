@@ -7,13 +7,14 @@ import { computed, ref, onMounted, watch } from 'vue'
 import Table from './Table.vue';
 import getLog from '../../api/getLog.js'
 import get from '@/api/get';
+import constants from '@/until/constants';
 
 let columns = ref([])
 let data = ref([])
 
 
 onMounted(async () => {
-    const response = await get('http://localhost:8080/api/modbus.log');
+    const response = await get(constants.api.modbuslog);
     const text = await response.text();
     if (!text) return;
     const dt = text.split('\n');

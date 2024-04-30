@@ -8,7 +8,7 @@ async function post(url, data) {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token.getSessionToken()
             },
-            body: JSON.stringify(data)
+            body: data
         })
         return response
 
