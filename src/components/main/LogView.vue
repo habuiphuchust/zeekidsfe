@@ -9,6 +9,9 @@
 </template>
 
 <script lang="ts" setup>
+const props = defineProps(['logName'])
+console.log(props.logName)
+
 import { ref, onMounted, watch } from 'vue'
 import Table from './Table.vue';
 import get from '@/api/get';
@@ -46,7 +49,7 @@ function getPage(curPage) {
 }
 
 async function upDate() {
-  const response = await get(constants.api.connlog + "?x=" + Math.random().toString());
+  const response = await get(constants.api.root + props.logName + "?x=" + Math.random().toString());
   const text = await response.text()
   if (!text) return;
   let parse = parseLog.Parse(text);

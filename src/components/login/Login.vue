@@ -116,7 +116,7 @@ const setUserInfo = (user) => {
 
 onBeforeMount(async () => {
     try {
-        const response = await get('http://localhost:8080/api/myinfo')
+        const response = await get(constants.api.myinfo)
         if (response.ok) {
             const data = await response.json();
             if (data?.username) {

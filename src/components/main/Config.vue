@@ -4,10 +4,9 @@
             <div class="card-header">
                 <p>
                     <span>Zeek Status: </span>
-                    <span v-if="isDisable">running</span>
-                    <span v-else>stopped</span>
+                    <span>{{ zeekStatus }}</span>
                 </p>
-                <el-switch v-model="isDisable" />
+                <el-switch v-model="isRunning" :before-change="switchZeek"/>
             </div>
         </template>
         <textarea class="text item" v-model="config" rows="20" cols="100" :disabled="isDisable">{{ config }}</textarea>
@@ -29,17 +28,20 @@ import post from '@/api/post';
 
 const config = ref('')
 const isDisable = ref(true);
+const isRunning = ref(false)
+const zeekStatus = ref("")
 
 onMounted(async () => {
     let response = await get(constants.api.config)
-    const text = await response.text()
-    config.value = text;
+    const data = await response.json()
+    config.value = data?.message;
+    checkStatus()
 })
 
 function Save() {
     isDisable.value = true;
     ElMessageBox.confirm(
-        'Bạn có muốn đăng xuất ?',
+        'Bạn có muốn lưu cấu hình ?',
         'Warning',
         {
             confirmButtonText: 'OK',
@@ -49,7 +51,7 @@ function Save() {
     )
         .then(async () => {
             let response = await post(constants.api.editconfig, config.value)
-            console.log(await response.text())
+            console.log(await response.json())
             ElMessage({
                 type: 'success',
                 message: 'success',
@@ -65,7 +67,51 @@ function Save() {
 
 async function Default() {
     let response = await get(constants.api.defaultconfig)
-    const text = await response.text()
-    config.value = text;
+    const data = await response.text()
+    config.value = data;
 }
-</script>
+
+async function switchZeek() {
+    let change = true;
+    let message = "Bạn có muốn bật ZeekIDS?"
+    if (isRunning.value) message = "Bạn có muốn tắt ZeekIDS?"
+    await ElMessageBox.confirm(
+        message,
+        'Warning',
+        {
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            type: 'warning',
+        }
+    )
+        .then(async () => {
+            change = true;
+        })
+        .catch(() => {
+            ElMessage({
+                type: 'info',
+                message: 'canceled',
+            })
+            change = false;
+        })
+        if (change) {
+            let response;
+            if (isRunning.value) response = await get(constants.api.stopZeek)
+            else response = await get(constants.api.startZeek)
+            let data = await response.json()
+            ElMessage({
+                type: 'success',
+                message: data?.message,
+            })
+            setTimeout(checkStatus, 500)
+        }
+        return false;
+}
+
+async function checkStatus() {
+    let zeekState = await get(constants.api.checkZeekStatus)
+    const states = await zeekState.json()
+    isRunning.value = !!states?.status
+    zeekStatus.value = states?.message
+}
+</script> 

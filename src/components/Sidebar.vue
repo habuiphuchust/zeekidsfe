@@ -1,5 +1,5 @@
 <template>
-    <el-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical-demo" default-active="2"
+    <el-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical-demo" default-active="1"
         text-color="#fff" @open="handleOpen" @close="handleClose">
         <el-menu-item index="1" @click="onClick('1')">
             <el-icon><icon-menu /></el-icon>
@@ -26,11 +26,9 @@
 </template>
 
 <script lang="ts" setup>
-import { RouterLink } from 'vue-router'
 import {
     Document,
     Menu as IconMenu,
-    Location,
     Setting,
 } from '@element-plus/icons-vue'
 import { useRouter} from 'vue-router'
