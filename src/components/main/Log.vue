@@ -5,16 +5,11 @@
       class="demo-tabs"
       @tab-click="handleClick"
     >
-      <el-tab-pane label="notice.log" name="first" lazy><LogView logName="notice.log"></LogView></el-tab-pane>
-      <el-tab-pane label="modbus.log" name="second" lazy><LogView logName="modbus.log"></LogView></el-tab-pane>
-      <el-tab-pane label="conn.log" name="third" lazy><LogView logName="conn.log"></LogView></el-tab-pane>
-      <el-tab-pane label="knownhost.log" name="fourth" lazy><LogView logName="knownhost.log"></LogView></el-tab-pane>
-      <!-- <el-tab-pane label="dhcp.log" name="five" lazy><LogView logName="dhcp.log"></LogView></el-tab-pane> -->
-      <el-tab-pane label="dns.log" name="six" lazy><LogView logName="dns.log"></LogView></el-tab-pane>
-      <!-- <el-tab-pane label="reporter.log" name="seven" lazy><LogView logName="reporter.log"></LogView></el-tab-pane> -->
-      <!-- <el-tab-pane label="weird.log" name="eight" lazy><LogView logName="weird.log"></LogView></el-tab-pane> -->
-      <!-- <el-tab-pane label="files.log" name="nine" lazy><LogView logName="files.log"></LogView></el-tab-pane> -->
-      <!-- <el-tab-pane label="http.log" name="ten" lazy><LogView logName="http.log"></LogView></el-tab-pane> -->
+      <el-tab-pane label="Notice" name="first" lazy><LogView logName="notice.log"></LogView></el-tab-pane>
+      <el-tab-pane label="Modbus packet" name="second" lazy><LogView logName="modbus.log"></LogView></el-tab-pane>
+      <el-tab-pane label="Connection" name="third" lazy><LogView logName="conn.log"></LogView></el-tab-pane>
+      <el-tab-pane label="Known host" name="fourth" lazy><LogView logName="knownhost.log"></LogView></el-tab-pane>
+      <el-tab-pane label="Dns" name="six" lazy><LogView logName="dns.log"></LogView></el-tab-pane>
 
 
 

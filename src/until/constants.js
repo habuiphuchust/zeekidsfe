@@ -1,6 +1,6 @@
 export default {
     api: {
-        root: 'http://192.168.56.102:8080/api/',
+        root: 'http://192.168.56.102:8080/api/logs/',
         login: "http://192.168.56.102:8080/api/login",
         register: "http://192.168.56.102:8080/api/register",
         myinfo: "http://192.168.56.102:8080/api/myinfo",

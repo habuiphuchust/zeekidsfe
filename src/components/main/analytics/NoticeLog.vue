@@ -96,7 +96,7 @@ function convertData(oldData) {
   let newData = oldData.map((value, index) => {
     let timeFloat = parseFloat(value?.ts)
     if (Number.isNaN(timeFloat)) return;
-    let date = new Date(timeFloat* 1000 + 7*3600000)
+    let date = new Date(timeFloat* 1000)
     let notice = "";
     switch (value?.note) {
       case "ScanPort::Scan_Port":
@@ -119,7 +119,7 @@ function convertData(oldData) {
     }
     return {
       id: index,
-      time: date.toISOString(),
+      time: date.toLocaleString(),
       attacker: value?.["id.orig_h"],
       victim: value?.["id.resp_h"],
       notice

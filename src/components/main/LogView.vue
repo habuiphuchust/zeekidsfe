@@ -10,7 +10,6 @@
 
 <script lang="ts" setup>
 const props = defineProps(['logName'])
-console.log(props.logName)
 
 import { ref, onMounted, watch } from 'vue'
 import Table from './Table.vue';
