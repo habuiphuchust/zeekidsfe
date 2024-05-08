@@ -26,19 +26,23 @@ const options = ref({
         ],
     }]
 })
-let now = new Date().getTime()
-let epo = 60000
-let dataPoints = [
-    { id: 5, label: "5 minutes ago", time: now - 5 * epo, y: 0 },
-    { id: 4, label: "4 minutes ago", time: now - 4 * epo, y: 0 },
-    { id: 3, label: "3 minutes ago", time: now - 3 * epo, y: 0 },
-    { id: 2, label: "2 minutes ago", time: now - 2 * epo, y: 0 },
-    { id: 1, label: "1 minute ago", time: now - epo, y: 0 },
-]
 
 onMounted(upDate)
 
 async function upDate() {
+    let res = await get(constants.api.time)
+    let timetext = await res.text()
+    let now = parseFloat(timetext)
+    console.log(now)
+    let epo = 60000
+    let dataPoints = [
+        { id: 5, label: "5 minutes ago", time: now - 5 * epo, y: 0 },
+        { id: 4, label: "4 minutes ago", time: now - 4 * epo, y: 0 },
+        { id: 3, label: "3 minutes ago", time: now - 3 * epo, y: 0 },
+        { id: 2, label: "2 minutes ago", time: now - 2 * epo, y: 0 },
+        { id: 1, label: "1 minute ago", time: now - epo, y: 0 },
+    ]
+    
     const response = await get(constants.api.root + "notice.log" + "?x=" + Math.random().toString());
     const text = await response.text()
     if (!text) return;

@@ -11,6 +11,7 @@ export default {
         defaultconfig: 'http://192.168.56.102:8080/api/MyConfig.zeek',
         checkZeekStatus: 'http://192.168.56.102:8080/api/check-zeekids',
         stopZeek: 'http://192.168.56.102:8080/api/stop-zeekids',
-        startZeek: 'http://192.168.56.102:8080/api/start-zeekids'
+        startZeek: 'http://192.168.56.102:8080/api/start-zeekids',
+        time: 'http://192.168.56.102:8080/api/epoch-time',
     }
 }
