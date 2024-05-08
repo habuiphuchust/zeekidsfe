@@ -3,7 +3,7 @@
         text-color="#fff" @open="handleOpen" @close="handleClose">
         <el-menu-item index="1" @click="onClick('1')">
             <el-icon><icon-menu /></el-icon>
-            <span>Log</span>
+            <span>Raw log</span>
         </el-menu-item>
         <el-menu-item index="2" @click="onClick('2')">
             <el-icon><icon-menu /></el-icon>
@@ -15,11 +15,11 @@
             </el-icon>
             <span>Statistic</span>
         </el-menu-item>
-        <el-menu-item index="4">
+        <el-menu-item index="4" @click="onClick('4')">
             <el-icon>
                 <setting />
             </el-icon>
-            <span>Setting</span>
+            <span>Log analytics</span>
         </el-menu-item>
     </el-menu>
 
@@ -53,6 +53,9 @@ function onClick(key:string) {
             break;
         case "3":
             router.push("/statistic")
+            break;
+        case "4":
+            router.push("/log-analytic")
             break;
         default:
             break;

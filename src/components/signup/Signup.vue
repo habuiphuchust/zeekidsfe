@@ -24,7 +24,9 @@
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import type { FormProps } from 'element-plus'
-// import { ElMessage } from 'element-plus'
+import post from '@/api/post';
+import constants from '@/until/constants';
+import { ElMessage } from 'element-plus'
 
 
 
@@ -74,7 +76,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
     formEl.validate((valid) => {
         if (valid) {
             console.log('submit!')
-            // sendRequestSignup();
+            sendRequestSignup();
         } else {
             console.log('error submit!')
             return false
@@ -88,35 +90,28 @@ const resetForm = (formEl: FormInstance | undefined) => {
 }
 const labelPosition = ref<FormProps['labelPosition']>('top')
 
-// const sendRequestSignup = async () => {
-//     let user = {username: ruleForm.username, password: ruleForm.pass, fullName: ruleForm.fullName}
-//     console.log(user)
-//     try {
-//         const response = await fetch('http://localhost:8080/api/register', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify(user)
-//         })
-//         if (response.ok) {
-//             const data = await response.json();
-//             console.log(data)
-//             if (data?.message === 'success' && data.data != null)
-//                 ElMessage(data.data)
+const sendRequestSignup = async () => {
+    let user = {username: ruleForm.username, password: ruleForm.pass, fullname: ruleForm.fullName}
+    console.log(user)
+    try {
+        const response = await post(constants.api.register, JSON.stringify(user))
+        if (response.ok) {
+            const data = await response.text();
+            console.log(data)
+            ElMessage(data)
 
 
-//         } else {
-//             console.error('Error 1:')
-//             const err = await response.json();
-//             ElMessage(err.message)
-//         }
+        } else {
+            console.error('Error 1:')
+            const err = await response.json();
+            ElMessage(err.message)
+        }
         
-//     } catch (error) {
-//         console.error('Error: 2', error);
-//         ElMessage('Có lỗi xảy ra')
-//     }
+    } catch (error) {
+        console.error('Error: 2', error);
+        ElMessage('Có lỗi xảy ra')
+    }
 
-// }
+}
 
 </script>

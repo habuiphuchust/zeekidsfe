@@ -12,6 +12,7 @@ const router = createRouter({
       children: [
         { path: '/', component: () => import('../components/main/Log.vue') },
         { path: 'log', component: () => import('../components/main/Log.vue') },
+        { path: 'log-analytic', component: () => import('../components/main/LogAnalytics.vue') },
         { path: 'statistic', component: () => import('../components/main/Statistic.vue') },
         { path: 'config', component: () => import('../components/main/Config.vue')},
       ]
