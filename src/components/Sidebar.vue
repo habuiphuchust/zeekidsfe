@@ -3,11 +3,11 @@
         text-color="#fff" @open="handleOpen" @close="handleClose">
         <el-menu-item index="1" @click="onClick('1')">
             <el-icon><icon-menu /></el-icon>
-            <span>Raw log</span>
+            <span>View Log</span>
         </el-menu-item>
         <el-menu-item index="2" @click="onClick('2')">
             <el-icon><icon-menu /></el-icon>
-            <span>Config</span>
+            <span>Edit Configuration</span>
         </el-menu-item>
         <el-menu-item index="3" @click="onClick('3')">
             <el-icon>
@@ -19,7 +19,7 @@
             <el-icon>
                 <setting />
             </el-icon>
-            <span>Log analytics</span>
+            <span>Monitor</span>
         </el-menu-item>
     </el-menu>
 

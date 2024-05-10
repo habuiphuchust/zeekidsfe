@@ -5,7 +5,7 @@
         <Topbar></Topbar>
       </el-header>
       <el-container>
-        <el-aside width="200px">
+        <el-aside width="200px" style="background-color: #545c64;">
           <Sidebar></Sidebar>
         </el-aside>
         <el-main>

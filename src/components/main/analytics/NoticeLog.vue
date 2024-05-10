@@ -1,31 +1,26 @@
 <template>
-  <el-button type="primary" round @click="upDate">Cập nhật</el-button>
-
-  <el-input v-model="search" style="width: 50%; margin-left: 50%; margin-top: -6rem;" size="small"
-    placeholder="Type to search" />
-  <el-text class="mx-1" size="large">DOS: {{ numDos }}, Scan Port: {{ numPortScan }}, Injection: {{ numInjection }}</el-text>
-  <el-table :data="data" style="width: 100%">
+  <p class="pulser"></p>
+  <el-text class="mx-1" size="large">DOS: {{ numDos }}, Scan Port: {{ numPortScan }}, Injection: {{ numInjection
+    }}</el-text>
+  <el-table :data="data" style="width: 100%; height: 500px;">
     <el-table-column prop="time" label="Time" width="180" />
     <el-table-column prop="notice" label="Notice" width="180" />
     <el-table-column prop="attacker" label="Attacker" />
     <el-table-column prop="victim" label="Victim" />
-  </el-table> 
-  <el-pagination :page-size="pageSize" :pager-count="7" layout="prev, pager, next" :total="totalElement"
-    @current-change="val => getPage(val)" />
+  </el-table>
+  <div style="height: 70px;"></div>
 </template>
 
 <script lang="ts" setup>
 const props = defineProps(['logName'])
 console.log(props.logName)
 
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, onBeforeUnmount} from 'vue'
 import get from '@/api/get';
 import parseLog from '@/until/parseLog';
 import constants from '@/until/constants';
 
 let data = ref([])
-const search = ref('')
-const filter = ref([])
 const rows = ref([]);
 const fields = ref([])
 const pageSize = ref(200)
@@ -35,27 +30,17 @@ const numDos = ref(0)
 const numInjection = ref(0)
 const numPortScan = ref(0)
 
-onMounted(upDate)
+let intervalId = null;
 
-
-watch(search, async () => {
-  let keyword = search.value.split('&&');
-  filter.value = rows.value.filter((value: String) => {
-    for (let i = 0; i < keyword.length; i++) {
-      if (!value.includes(keyword[i].trim())) return false;
-    }
-    return true;
-  })
-  totalElement.value = filter.value.length
-  let parseData = parseLog.GetData(fields.value, filter.value, pageSize.value * (currentPage.value - 1), pageSize.value * currentPage.value);
-  convertData(parseData)
+onMounted(() => {
+  upDate();
+  if (!intervalId)
+  intervalId = setInterval(upDate, 4000);
 })
 
-function getPage(curPage) {
-  currentPage.value = curPage
-  let parseData = parseLog.GetData(fields.value, filter.value, pageSize.value * (curPage - 1), pageSize.value * curPage);
-  convertData(parseData)
-}
+onBeforeUnmount(() => {
+  clearInterval(intervalId); // Gỡ bỏ interval
+});
 
 async function upDate() {
   const response = await get(constants.api.root + props.logName + "?x=" + Math.random().toString());
@@ -64,22 +49,21 @@ async function upDate() {
   let parse = parseLog.Parse(text);
   rows.value = parse.rows
   fields.value = parse.fields
-  filter.value = parse.rows
 
   numPortScan.value = 0
   numDos.value = 0
   numInjection.value = 0
-  
+
   parse.rows.forEach(element => {
-    if (element.includes("ScanPort::Scan_Port") || element.includes("ScanModbus::Scan_Port_To_Modbus")){
+    if (element.includes("ScanPort::Scan_Port") || element.includes("ScanModbus::Scan_Port_To_Modbus")) {
       numPortScan.value++
       return;
     }
-    if (element.includes("DOS::PING_OF_DEATH") || element.includes("DOS::TCP_SYN_FLUSH")){
+    if (element.includes("DOS::PING_OF_DEATH") || element.includes("DOS::TCP_SYN_FLUSH")) {
       numDos.value++
       return
     }
-    if (element.includes("ModbusInjection::Detect_Retransmission")){
+    if (element.includes("ModbusInjection::Detect_Retransmission")) {
       numInjection.value++
       return
     }
@@ -96,7 +80,7 @@ function convertData(oldData) {
   let newData = oldData.map((value, index) => {
     let timeFloat = parseFloat(value?.ts)
     if (Number.isNaN(timeFloat)) return;
-    let date = new Date(timeFloat* 1000)
+    let date = new Date(timeFloat * 1000)
     let notice = "";
     switch (value?.note) {
       case "ScanPort::Scan_Port":
@@ -128,3 +112,38 @@ function convertData(oldData) {
   data.value = newData
 }
 </script>
+<style>
+.pulser {
+  width: 20px;
+  height: 20px;
+  background: rebeccapurple;
+  border-radius: 50%;
+  position: relative;
+}
+
+.pulser::after {
+  animation: pulse 1000ms cubic-bezier(0.9, 0.7, 0.5, 0.9) infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.4;
+  }
+}
+
+.pulser::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: blueviolet;
+  border-radius: 50%;
+  z-index: -1;
+}
+</style>
