@@ -26,6 +26,8 @@ import Connection from "./statistic/Connection.vue"
 import Notice from "./statistic/Notice.vue"
 
 const value = ref('1+minutes')
+const sourceIP = ref('')
+const desIP = ref('')
 
 const options = [
   {

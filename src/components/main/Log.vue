@@ -5,11 +5,11 @@
       class="demo-tabs"
       @tab-click="handleClick"
     >
-      <el-tab-pane label="Notice" name="first" lazy><LogView logName="notice.log"></LogView></el-tab-pane>
-      <el-tab-pane label="Modbus packet" name="second" lazy><LogView logName="modbus.log"></LogView></el-tab-pane>
-      <el-tab-pane label="Connection" name="third" lazy><LogView logName="conn.log"></LogView></el-tab-pane>
-      <el-tab-pane label="Known host" name="fourth" lazy><LogView logName="knownhost.log"></LogView></el-tab-pane>
-      <el-tab-pane label="Dns" name="six" lazy><LogView logName="dns.log"></LogView></el-tab-pane>
+      <el-tab-pane label="Notice" name="first" lazy><Notice></Notice></el-tab-pane>
+      <el-tab-pane label="Modbus packet" name="second" lazy><Modbus></Modbus></el-tab-pane>
+      <el-tab-pane label="Connection" name="third" lazy><Connection></Connection></el-tab-pane>
+      <el-tab-pane label="Known services" name="fourth" lazy><LogView logName="known_services.log"></LogView></el-tab-pane>
+      <el-tab-pane label="Dns" name="six" lazy><Dns></Dns></el-tab-pane>
 
 
 
@@ -19,6 +19,10 @@
   import { ref } from 'vue'
   import type { TabsPaneContext } from 'element-plus'
   import LogView from './LogView.vue';
+  import Connection from './logs/Connection.vue';
+  import Modbus from './logs/Modbus.vue';
+  import Dns from './logs/Dns.vue';
+  import Notice from './logs/Notice.vue';
   
   const activeName = ref('first')
   

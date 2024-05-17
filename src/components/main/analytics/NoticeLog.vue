@@ -15,7 +15,7 @@
 const props = defineProps(['logName'])
 console.log(props.logName)
 
-import { ref, onMounted, onBeforeUnmount} from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import get from '@/api/get';
 import parseLog from '@/until/parseLog';
 import constants from '@/until/constants';
@@ -35,7 +35,7 @@ let intervalId = null;
 onMounted(() => {
   upDate();
   if (!intervalId)
-  intervalId = setInterval(upDate, 4000);
+    intervalId = setInterval(upDate, 4000);
 })
 
 onBeforeUnmount(() => {
@@ -59,7 +59,8 @@ async function upDate() {
       numPortScan.value++
       return;
     }
-    if (element.includes("DOS::PING_OF_DEATH") || element.includes("DOS::TCP_SYN_FLUSH")) {
+    if (element.includes("DOS::PING_OF_DEATH") || element.includes("DOS::TCP_SYN_FLUSH") ||
+      element.includes("DOS::ICMP_FLUSH") || element.includes("DOS::DNS_AMPLIFICATION")) {
       numDos.value++
       return
     }
@@ -95,6 +96,12 @@ function convertData(oldData) {
       case "DOS::TCP_SYN_FLUSH":
         notice = "tcp syn flush attack detection"
         break;
+      case "DOS::ICMP_FLUSH":
+        notice = "icmp flush attack detection"
+        break;
+      case "DOS::DNS_AMPLIFICATION":
+        notice = "dns amplification attack detection"
+        break;
       case "ModbusInjection::Detect_Retransmission":
         notice = "suspected packet injection attack to modbus service"
         break;
@@ -129,6 +136,7 @@ function convertData(oldData) {
   0% {
     opacity: 0;
   }
+
   50% {
     transform: scale(1.4);
     opacity: 0.4;

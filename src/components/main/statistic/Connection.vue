@@ -4,10 +4,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, onBeforeUnmount } from 'vue';
 import get from '@/api/get';
 import parseLog from '@/until/parseLog';
 import constants from '@/until/constants';
+
+let intervalId = null;
 
 const props = defineProps(['time'])
 let numUnit = props.time.split('+')[0]
@@ -26,12 +28,12 @@ const options = ref({
         text: "Modbus Packet Chart last 5 minutes"
     },
     data: [{
-        type: "column",
+        type: "line",
         dataPoints: [
-            { id: 5, label: `${parseInt(numUnit)*5} ${nameUnit} ago`, y: 0 },
-            { id: 4, label: `${parseInt(numUnit)*4} ${nameUnit} ago`, y: 0 },
-            { id: 3, label: `${parseInt(numUnit)*3} ${nameUnit} ago`, y: 0 },
-            { id: 2, label: `${parseInt(numUnit)*2} ${nameUnit} ago`, y: 0 },
+            { id: 5, label: `${parseInt(numUnit) * 5} ${nameUnit} ago`, y: 0 },
+            { id: 4, label: `${parseInt(numUnit) * 4} ${nameUnit} ago`, y: 0 },
+            { id: 3, label: `${parseInt(numUnit) * 3} ${nameUnit} ago`, y: 0 },
+            { id: 2, label: `${parseInt(numUnit) * 2} ${nameUnit} ago`, y: 0 },
             { id: 1, label: `${numUnit} ${nameUnit} ago`, y: 0 },
         ],
     }]
@@ -45,15 +47,15 @@ async function upDate() {
     let now = parseFloat(timetext)
     console.log(now)
     let epo = parseInt(numUnit)
-    if (nameUnit === 'minutes') epo*=60000
-    else if (nameUnit === 'hours') epo*=3600000
-    else if (nameUnit === 'days') epo*=86400000
+    if (nameUnit === 'minutes') epo *= 60000
+    else if (nameUnit === 'hours') epo *= 3600000
+    else if (nameUnit === 'days') epo *= 86400000
 
     let dataPoints = [
-        { id: 5, label: `${parseInt(numUnit)*5} ${nameUnit} ago`, time: now - 5 * epo, y: 0 },
-        { id: 4, label: `${parseInt(numUnit)*4} ${nameUnit} ago`, time: now - 4 * epo, y: 0 },
-        { id: 3, label: `${parseInt(numUnit)*3} ${nameUnit} ago`, time: now - 3 * epo, y: 0 },
-        { id: 2, label: `${parseInt(numUnit)*2} ${nameUnit} ago`, time: now - 2 * epo, y: 0 },
+        { id: 5, label: `${parseInt(numUnit) * 5} ${nameUnit} ago`, time: now - 5 * epo, y: 0 },
+        { id: 4, label: `${parseInt(numUnit) * 4} ${nameUnit} ago`, time: now - 4 * epo, y: 0 },
+        { id: 3, label: `${parseInt(numUnit) * 3} ${nameUnit} ago`, time: now - 3 * epo, y: 0 },
+        { id: 2, label: `${parseInt(numUnit) * 2} ${nameUnit} ago`, time: now - 2 * epo, y: 0 },
         { id: 1, label: `${parseInt(numUnit)} ${nameUnit} ago`, time: now - epo, y: 0 },
     ]
     console.log(dataPoints)
@@ -90,10 +92,10 @@ async function upDate() {
     options.value = {
         animationEnabled: true,
         title: {
-            text: `Connection Chart last ${parseInt(numUnit)*5} ${nameUnit}`
+            text: `Connection Chart last ${parseInt(numUnit) * 5} ${nameUnit}`
         },
         data: [{
-            type: "column",
+            type: "line",
             dataPoints,
         }]
     }

@@ -4,7 +4,7 @@
         <el-menu-item index="1">{{ store.username + roles }}</el-menu-item>
         <div class="flex-grow"></div>
         <el-menu-item index="3" @click="onClick('3')">Log out</el-menu-item>
-        <el-sub-menu index="4">
+        <!-- <el-sub-menu index="4">
             <template #title>Option3</template>
             <el-menu-item index="4-1">item one</el-menu-item>
             <el-menu-item index="4-2">item two</el-menu-item>
@@ -15,7 +15,7 @@
                 <el-menu-item index="4-4-2">item two</el-menu-item>
                 <el-menu-item index="4-4-3">item three</el-menu-item>
             </el-sub-menu>
-        </el-sub-menu>
+        </el-sub-menu> -->
     </el-menu>
 </template>
 

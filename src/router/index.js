@@ -10,11 +10,12 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       children: [
-        { path: '/', component: () => import('../components/main/Log.vue') },
+        { path: '/', component: () => import('../components/main/DashBoard.vue') },
         { path: 'log', component: () => import('../components/main/Log.vue') },
         { path: 'log-analytic', component: () => import('../components/main/LogAnalytics.vue') },
         { path: 'statistic', component: () => import('../components/main/Statistic.vue') },
         { path: 'config', component: () => import('../components/main/Config.vue')},
+        { path: 'dashboard', component: () => import('../components/main/DashBoard.vue')},
       ]
     },
     {
