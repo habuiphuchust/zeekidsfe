@@ -28,7 +28,7 @@ const options = ref({
         text: "Modbus Packet Chart last 5 minutes"
     },
     data: [{
-        type: "line",
+        type: "spline",
         dataPoints: [
             { id: 5, label: `${parseInt(numUnit) * 5} ${nameUnit} ago`, y: 0 },
             { id: 4, label: `${parseInt(numUnit) * 4} ${nameUnit} ago`, y: 0 },
@@ -95,7 +95,7 @@ async function upDate() {
             text: `Connection Chart last ${parseInt(numUnit) * 5} ${nameUnit}`
         },
         data: [{
-            type: "line",
+            type: "spline",
             dataPoints,
         }]
     }

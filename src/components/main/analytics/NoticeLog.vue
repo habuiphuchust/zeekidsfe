@@ -1,7 +1,7 @@
 <template>
   <p class="pulser"></p>
   <el-text class="mx-1" size="large">DOS: {{ numDos }}, Scan Port: {{ numPortScan }}, Injection: {{ numInjection
-    }}</el-text>
+    }}, Vulnerable: {{ numVulnerable }}</el-text>
   <el-table :data="data" style="width: 100%; height: 500px;">
     <el-table-column prop="time" label="Time" width="180" />
     <el-table-column prop="notice" label="Notice" width="180" />
@@ -29,6 +29,7 @@ const totalElement = ref(0);
 const numDos = ref(0)
 const numInjection = ref(0)
 const numPortScan = ref(0)
+const numVulnerable = ref(0)
 
 let intervalId = null;
 
@@ -68,6 +69,10 @@ async function upDate() {
       numInjection.value++
       return
     }
+    if (element.includes("Signature::RESET")) {
+      numVulnerable.value++
+      return
+    }
   });
 
 
@@ -104,6 +109,9 @@ function convertData(oldData) {
         break;
       case "ModbusInjection::Detect_Retransmission":
         notice = "suspected packet injection attack to modbus service"
+        break;
+      case "Signature::RESET":
+        notice = "Detected old reset funtion"
         break;
       default:
         break;

@@ -25,7 +25,7 @@ const options = ref({
         text: "Modbus Packet Chart last 5 minutes"
     },
     data: [{
-        type: "line",
+        type: "spline",
         dataPoints: [
             { id: 5, label: "5 minutes ago", y: 0 },
             { id: 4, label: "4 minutes ago", y: 0 },
@@ -91,7 +91,7 @@ async function upDate() {
             text: "Notice Chart last 5 minutes"
         },
         data: [{
-            type: "line",
+            type: "spline",
             dataPoints,
         }]
     }
