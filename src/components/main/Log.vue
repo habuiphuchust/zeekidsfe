@@ -5,7 +5,7 @@
       class="demo-tabs"
       @tab-click="handleClick"
     >
-      <el-tab-pane label="Notice" name="first" lazy><Notice></Notice></el-tab-pane>
+      <el-tab-pane label="Alert" name="first" lazy><Notice></Notice></el-tab-pane>
       <el-tab-pane label="Modbus packet" name="second" lazy><Modbus></Modbus></el-tab-pane>
       <el-tab-pane label="Connection" name="third" lazy><Connection></Connection></el-tab-pane>
       <el-tab-pane label="Known services" name="fourth" lazy><LogView logName="known_services.log"></LogView></el-tab-pane>

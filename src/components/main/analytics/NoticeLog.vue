@@ -2,11 +2,11 @@
   <p class="pulser"></p>
   <el-text class="mx-1" size="large">DOS: {{ numDos }}, Scan Port: {{ numPortScan }}, Injection: {{ numInjection
     }}, Vulnerable: {{ numVulnerable }}</el-text>
-  <el-table :data="data" style="width: 100%; height: 500px;">
+  <el-table :data="data" style="width: 100%; height: 500px;" row-class-name="warning-row">
     <el-table-column prop="time" label="Time" width="180" />
-    <el-table-column prop="notice" label="Notice" width="180" />
-    <el-table-column prop="attacker" label="Attacker" />
-    <el-table-column prop="victim" label="Victim" />
+    <el-table-column prop="msg" label="Alert" width="180" />
+    <el-table-column prop="src" label="Attacker" />
+    <el-table-column prop="dst" label="Victim" />
   </el-table>
   <div style="height: 70px;"></div>
 </template>
@@ -77,55 +77,15 @@ async function upDate() {
 
 
   totalElement.value = rows.value.length
-  let parseData = parseLog.GetData(fields.value, rows.value, pageSize.value * (currentPage.value - 1), pageSize.value * currentPage.value);
-  convertData(parseData)
+  data.value = parseLog.GetData(fields.value, rows.value, pageSize.value * (currentPage.value - 1), pageSize.value * currentPage.value).map(element => {
+    element.time = new Date(parseFloat(element.ts) * 1000).toLocaleString()
+    element.src = `${element["id.orig_h"]}:${element["id.orig_p"]}`
+    element.dst = `${element["id.resp_h"]}:${element["id.resp_p"]}`
+    return element
+  });
 
 }
 
-function convertData(oldData) {
-  let newData = oldData.map((value, index) => {
-    let timeFloat = parseFloat(value?.ts)
-    if (Number.isNaN(timeFloat)) return;
-    let date = new Date(timeFloat * 1000)
-    let notice = "";
-    switch (value?.note) {
-      case "ScanPort::Scan_Port":
-        notice = "Detect scan port"
-        break;
-      case "ScanModbus::Scan_Port_To_Modbus":
-        notice = "Detect scan to modbus service"
-        break;
-      case "DOS::PING_OF_DEATH":
-        notice = "Ping of Death attack detection"
-        break;
-      case "DOS::TCP_SYN_FLUSH":
-        notice = "tcp syn flush attack detection"
-        break;
-      case "DOS::ICMP_FLUSH":
-        notice = "icmp flush attack detection"
-        break;
-      case "DOS::DNS_AMPLIFICATION":
-        notice = "dns amplification attack detection"
-        break;
-      case "ModbusInjection::Detect_Retransmission":
-        notice = "suspected packet injection attack to modbus service"
-        break;
-      case "Signature::RESET":
-        notice = "Detected old reset funtion"
-        break;
-      default:
-        break;
-    }
-    return {
-      id: index,
-      time: date.toLocaleString(),
-      attacker: value?.["id.orig_h"],
-      victim: value?.["id.resp_h"],
-      notice
-    }
-  })
-  data.value = newData
-}
 </script>
 <style>
 .pulser {
@@ -161,5 +121,8 @@ function convertData(oldData) {
   background: blueviolet;
   border-radius: 50%;
   z-index: -1;
+}
+.warning-row {
+  color: red;
 }
 </style>

@@ -25,34 +25,32 @@ import Modbus from "./statistic/Modbus.vue"
 import Connection from "./statistic/Connection.vue"
 import Notice from "./statistic/Notice.vue"
 
-const value = ref('1+minutes')
-const sourceIP = ref('')
-const desIP = ref('')
+const value = ref('600000')
 
 const options = [
   {
-    value: '1+minutes',
-    label: '1 minute',
-  },
-  {
-    value: '10+minutes',
+    value: '600000',
     label: '10 minutes',
   },
   {
-    value: '1+hours',
+    value: 3600000,
     label: '1 hour',
   },
   {
-    value: '2+hours',
+    value: 7200000,
     label: '2 hours',
   },
   {
-    value: '10+hours',
+    value: 36000000,
     label: '10 hours',
   },
   {
-    value: '1+days',
+    value: 86400000,
     label: '1 day',
+  },
+  {
+    value: 604800000,
+    label: '7 day',
   },
 ]
 
