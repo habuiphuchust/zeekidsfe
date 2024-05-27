@@ -23,7 +23,7 @@ const isAmin = ref(false);
 onMounted(async () => {
     console.log(store.role[0])
     isAmin.value = !(store?.role[0] === 'ROLE_ADMIN')
-    let response = await get(constants.api.config)
+    let response = await get(constants.api.configText)
     const data = await response.json()
     config.value = data?.message;
 })

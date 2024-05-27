@@ -1,5 +1,11 @@
 <template>
     <el-row>
+        <el-col>
+            <SwitchZeek></SwitchZeek>
+
+        </el-col>
+    </el-row>
+    <el-row>
         <el-col :span="6">
             <el-statistic :value="totalAlert" value-style="color: red">
                 <template #title>
@@ -28,11 +34,11 @@
     </el-row>
     <!-- <el-button type="primary" round @click="upDate">Cập nhật</el-button> -->
     <CanvasJSChart :options="options" @chart-ref="chartInstance" />
+    <CanvasJSChart :options="options2" @chart-ref="chartInstance2" />
     <h4>Filter source, destination of connection: </h4>
     <el-input v-model="input1" style="width: 100px" placeholder="SoureIP" />
     <el-input v-model="input2" style="width: 100px" placeholder="DestIP" />
     <el-button type="primary" @click="filter">Apply</el-button>
-    <CanvasJSChart :options="options2" @chart-ref="chartInstance2" />
 
 
 
@@ -43,6 +49,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 import get from '@/api/get';
 import parseLog from '@/until/parseLog';
 import constants from '@/until/constants';
+import SwitchZeek from './config/SwitchZeek.vue';
 
 const totalConnection = ref(0)
 const totalDNS = ref(0)
