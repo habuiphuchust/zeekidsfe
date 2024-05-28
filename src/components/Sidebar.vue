@@ -26,6 +26,12 @@
                 Alert
             </el-badge>
         </el-menu-item>
+        <el-menu-item index="6" @click="onClick('6')" v-if="(store?.role[0] === 'ROLE_ADMIN')">
+            <el-icon>
+                <document />
+            </el-icon>
+            <span>User</span>
+        </el-menu-item>
     </el-menu>
 
 </template>
@@ -40,6 +46,9 @@ import {
 } from '@element-plus/icons-vue'
 import { onMounted, ref, onBeforeUnmount } from 'vue';
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
+const store = useUserStore()
+
 
 const router = useRouter()
 
@@ -69,6 +78,9 @@ function onClick(key: string) {
             break;
         case "5":
             router.push("/dashboard")
+            break;
+        case "6":
+            router.push("/users")
             break;
         default:
             break;

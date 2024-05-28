@@ -1,7 +1,7 @@
 <template>
   <p class="pulser"></p>
-  <el-text class="mx-1" size="large">DOS: {{ numDos }}, Scan Port: {{ numPortScan }}, Injection: {{ numInjection
-    }}, Vulnerable: {{ numVulnerable }}</el-text>
+  <el-text class="mx-1" size="large">DOS: {{ numDos }}, Scan Port: {{ numPortScan }}, Modbus Injection: {{ numInjection
+    }}, Modbus harmful: {{ numVulnerable }}</el-text>
   <el-table :data="data" style="width: 100%; height: 500px;" row-class-name="warning-row">
     <el-table-column prop="time" label="Time" width="180" />
     <el-table-column prop="msg" label="Alert" width="180" />
@@ -54,6 +54,7 @@ async function upDate() {
   numPortScan.value = 0
   numDos.value = 0
   numInjection.value = 0
+  numVulnerable.value = 0
 
   parse.rows.forEach(element => {
     if (element.includes("ScanPort::Scan_Port") || element.includes("ScanModbus::Scan_Port_To_Modbus")) {
@@ -61,7 +62,7 @@ async function upDate() {
       return;
     }
     if (element.includes("DOS::PING_OF_DEATH") || element.includes("DOS::TCP_SYN_FLUSH") ||
-      element.includes("DOS::ICMP_FLUSH") || element.includes("DOS::DNS_AMPLIFICATION")) {
+      element.includes("DOS::ICMP_FLUSH") || element.includes("DOS::DNS_AMPLIFICATION") || element.includes("ModbusDetection::FUNCTION")) {
       numDos.value++
       return
     }
@@ -69,7 +70,8 @@ async function upDate() {
       numInjection.value++
       return
     }
-    if (element.includes("Signature::RESET")) {
+    if (element.includes("Signature::RESET") || element.includes("ModbusCovertChannels::Potential_Covert_Channel")
+      || element.includes("ModbusDetection::IP_STRANGER")) {
       numVulnerable.value++
       return
     }
@@ -122,6 +124,7 @@ async function upDate() {
   border-radius: 50%;
   z-index: -1;
 }
+
 .warning-row {
   color: red;
 }

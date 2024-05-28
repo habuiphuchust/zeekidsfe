@@ -16,6 +16,8 @@ const router = createRouter({
         { path: 'statistic', component: () => import('../components/main/Statistic.vue') },
         { path: 'config', component: () => import('../components/main/Config.vue')},
         { path: 'dashboard', component: () => import('../components/main/DashBoard.vue')},
+        { path: 'users', component: () => import('../components/main/Users.vue')},
+
       ]
     },
     {
