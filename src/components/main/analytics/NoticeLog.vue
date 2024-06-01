@@ -44,7 +44,7 @@ onBeforeUnmount(() => {
 });
 
 async function upDate() {
-  const response = await get(constants.api.root + props.logName + "?x=" + Math.random().toString());
+  const response = await get(constants.api.log + props.logName + "?x=" + Math.random().toString());
   const text = await response.text()
   if (!text) return;
   let parse = parseLog.Parse(text);

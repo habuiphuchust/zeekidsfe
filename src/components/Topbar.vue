@@ -97,13 +97,13 @@ function changePassword() {
             const text = await response.text()
             if (response.ok) {
                 ElMessage({
-                    type: 'info',
+                    type: 'success',
                     message: text,
                 })
                 dialogTableVisible.value = false
             } else {
                 ElMessage({
-                    type: 'info',
+                    type: 'error',
                     message: "fail to change password",
                 })
                 dialogTableVisible.value = false

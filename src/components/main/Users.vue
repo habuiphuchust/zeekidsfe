@@ -94,14 +94,14 @@ const handleDelete = (index, row) => {
             const text = await response.text()
             if (response.ok) {
                 ElMessage({
-                    type: 'info',
+                    type: 'success',
                     message: text,
                 })
                 upDate()
                 dialogTableVisible.value = false
             } else {
                 ElMessage({
-                    type: 'info',
+                    type: 'error',
                     message: "fail to delete user",
                 })
                 dialogTableVisible.value = false
@@ -133,15 +133,15 @@ async function addUser() {
     const text = await response.text()
     if (response.ok) {
         ElMessage({
-            type: 'info',
+            type: 'success',
             message: text,
         })
         upDate()
         dialogTableVisible.value = false
     } else {
         ElMessage({
-            type: 'info',
-            message: "fail to add user",
+            type: 'error',
+            message: 'fail to add user',
         })
         dialogTableVisible.value = false
     }
@@ -158,18 +158,18 @@ async function changePassword() {
         }
     )
         .then(async () => {
-            const response = await post(constants.api.changePassword, JSON.stringify({username: oldUser.value, newPassword: newPassword.value}))
+            const response = await post(constants.api.changePassword, JSON.stringify({ username: oldUser.value, newPassword: newPassword.value }))
             const text = await response.text()
             if (response.ok) {
                 ElMessage({
-                    type: 'info',
+                    type: 'success',
                     message: text,
                 })
                 upDate()
                 dialogTableVisible2.value = false
             } else {
                 ElMessage({
-                    type: 'info',
+                    type: 'error',
                     message: "fail to change password",
                 })
                 dialogTableVisible2.value = false

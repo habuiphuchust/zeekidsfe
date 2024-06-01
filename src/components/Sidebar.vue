@@ -91,16 +91,15 @@ function onClick(key: string) {
 let intervalId = null;
 
 onMounted(async () => {
-    const response1 = await get(constants.api.root + "notice.log?x=" + Math.random().toString());
+    const response1 = await get(constants.api.log + "notice.log?x=" + Math.random().toString());
     const text1 = await response1.text()
     notice.value = text1.split('\n').length - 9
     console.log(notice.value)
     if (!intervalId)
         intervalId = setInterval(async () => {
-            const response = await get(constants.api.root + "notice.log?x=" + Math.random().toString());
+            const response = await get(constants.api.log + "notice.log?x=" + Math.random().toString());
             const text = await response.text()
             notice.value = text.split('\n').length - 9
-            console.log(notice.value)
         }, 10000);
 })
 

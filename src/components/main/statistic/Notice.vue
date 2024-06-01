@@ -42,7 +42,7 @@ async function upDate() {
     let timetext = await res.text()
     let now = parseFloat(timetext)
 
-    const response = await get(constants.api.root + "notice.log" + "?x=" + Math.random().toString());
+    const response = await get(constants.api.log + "notice.log" + "?x=" + Math.random().toString());
     const text = await response.text()
     if (!text) return;
     let parse = parseLog.Parse(text);
