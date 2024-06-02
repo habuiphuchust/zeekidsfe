@@ -19,7 +19,7 @@ console.log(route.path);
                     }">
                         <div v-if="route.path === '/login'">
                             <Login></Login>
-                            <RouterLink to="/signup">Signup</RouterLink>
+                            <!-- <RouterLink to="/signup">Signup</RouterLink> -->
                         </div>
                         <div v-else>
                             <Signup></Signup>

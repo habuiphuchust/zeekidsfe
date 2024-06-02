@@ -5,7 +5,7 @@
 <script setup>
 import get from '@/api/get';
 import constants from '@/until/constants';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, onBeforeUnmount } from 'vue';
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useUserStore } from '@/stores/user'
 const store = useUserStore()
@@ -14,12 +14,19 @@ const isRunning = ref(false)
 const zeekStatus = ref("")
 const isAmin = ref(false);
 
+let intervalId = null;
+
 onMounted(async () => {
     console.log(store.role[0])
     isAmin.value = !(store?.role[0] === 'ROLE_ADMIN')
     checkStatus()
+    if (!intervalId)
+        intervalId = setInterval(checkStatus, 10000);
 })
 
+onBeforeUnmount(() => {
+    clearInterval(intervalId); // Gỡ bỏ interval
+});
 
 async function switchZeek() {
     let change = true;

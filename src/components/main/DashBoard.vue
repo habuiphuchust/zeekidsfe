@@ -126,7 +126,7 @@ async function upDate() {
     let timetext = await res.text()
     let now = parseFloat(timetext)
 
-    let response = await get(constants.api.root + "conn.log" + "?x=" + Math.random().toString());
+    let response = await get(constants.api.log + "conn.log" + "?x=" + Math.random().toString());
     let text = await response.text()
     if (!text) return;
     let parse = parseLog.Parse(text);
@@ -173,7 +173,7 @@ async function upDate() {
 
     chart.value.render()
 
-    response = await get(constants.api.root + "notice.log" + "?x=" + Math.random().toString());
+    response = await get(constants.api.log + "notice.log" + "?x=" + Math.random().toString());
     text = await response.text()
     if (!text) return;
     parse = parseLog.Parse(text);
@@ -200,8 +200,8 @@ async function upDate() {
 
 
 
-    const res2 = await get(constants.api.root + "dns.log" + "?x=" + Math.random().toString());
-    const res3 = await get(constants.api.root + "known_services.log" + "?x=" + Math.random().toString());
+    const res2 = await get(constants.api.log + "dns.log" + "?x=" + Math.random().toString());
+    const res3 = await get(constants.api.log + "known_services.log" + "?x=" + Math.random().toString());
     let res2Text = await res2.text()
     let res3Text = await res3.text()
     totalDNS.value = res2Text.split('\n').length -9
