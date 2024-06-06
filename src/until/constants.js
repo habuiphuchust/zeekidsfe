@@ -1,4 +1,4 @@
-const host = 'http://192.168.56.102:8080';
+const host = 'http://192.168.56.1:8080';
 export default {
     api: {
         log: `${host}/api/logs/`,

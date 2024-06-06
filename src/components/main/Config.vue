@@ -4,13 +4,23 @@
         </el-icon></el-link>
 
     <br>
-    <el-link type="primary">/ {{ currentDir }}</el-link>
-    <el-link type="success" @click="dialogTableVisible2 = true"><el-icon :size="20">
-            <DocumentAdd />
-        </el-icon> Add file</el-link>
-    <el-link type="success" @click="dialogTableVisible3 = true"><el-icon :size="20">
-            <FolderAdd />
-        </el-icon> Add folder</el-link>
+    <el-popover placement="bottom" :width="200" trigger="click">
+        <template #reference>
+            <el-button class="m-2">My Script /{{ currentDir }}<el-icon>
+                    <CaretBottom />
+                </el-icon></el-button>
+        </template>
+        <div>
+            <el-link type="success" @click="dialogTableVisible2 = true" style="width: 100%;"><el-icon :size="20">
+                    <DocumentAdd />
+                </el-icon> Add file</el-link>
+                <hr>
+            <el-link type="success" @click="dialogTableVisible3 = true" style="width: 100%;"><el-icon :size="20">
+                    <FolderAdd />
+                </el-icon> Add folder</el-link>
+
+        </div>
+    </el-popover>
 
     <p v-for="file in listFiles">
     <div v-if="file.type === 'file'">
@@ -35,7 +45,7 @@
     </div>
     </p>
 
-    <el-dialog v-model="dialogTableVisible" title="File">
+    <el-dialog v-model="dialogTableVisible" :title="currentFile">
         <LoadScript :fileName="currentFile" :key="key" @close="dialogTableVisible = false"></LoadScript>
     </el-dialog>
 
@@ -72,7 +82,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import {
     Document, DocumentAdd,
     Folder, FolderAdd,
-    Back, Delete,
+    Back, Delete, CaretBottom,
 } from '@element-plus/icons-vue'
 
 const dialogTableVisible = ref(false)
