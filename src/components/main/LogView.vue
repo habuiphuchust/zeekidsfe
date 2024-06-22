@@ -59,6 +59,6 @@ async function upDate() {
   columns.value = fields.value
 
   totalElement.value = rows.value.length
-  data.value = parseLog.GetData(fields.value, rows.value, pageSize.value * (currentPage.value - 1), pageSize.value * currentPage.value);
+  data.value = parseLog.GetData(fields.value, rows.value, pageSize.value * (currentPage.value - 1), pageSize.value * currentPage.value).filter(e => e.ts);
 }
 </script>

@@ -33,8 +33,8 @@
         </el-col>
     </el-row>
     <!-- <el-button type="primary" round @click="upDate">Cập nhật</el-button> -->
-    <CanvasJSChart :options="options" @chart-ref="chartInstance" />
-    <CanvasJSChart :options="options2" @chart-ref="chartInstance2" />
+    <CanvasJSChart :options="options" @chart-ref="chartInstance" style="height: 180px;"/>
+    <CanvasJSChart :options="options2" @chart-ref="chartInstance2" style="height: 180px;"/>
     <h4>Filter source, destination of connection: </h4>
     <el-input v-model="input1" style="width: 100px" placeholder="SoureIP" />
     <el-input v-model="input2" style="width: 100px" placeholder="DestIP" />

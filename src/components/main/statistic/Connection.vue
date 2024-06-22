@@ -1,6 +1,6 @@
 <template>
     <!-- <el-button type="primary" round @click="upDate">Cập nhật</el-button> -->
-    <CanvasJSChart :options="options" @chart-ref="chartInstance"/>
+    <CanvasJSChart :options="options" @chart-ref="chartInstance" style="height: 250px;"/>
 </template>
 
 <script setup>

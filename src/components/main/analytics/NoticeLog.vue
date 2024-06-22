@@ -62,7 +62,7 @@ async function upDate() {
       return;
     }
     if (element.includes("DOS::PING_OF_DEATH") || element.includes("DOS::TCP_SYN_FLUSH") ||
-      element.includes("DOS::ICMP_FLUSH") || element.includes("DOS::DNS_AMPLIFICATION") || element.includes("ModbusDetection::FUNCTION")) {
+      element.includes("DOS::ICMP_FLUSH") || element.includes("DOS::DNS_AMPLIFICATION")) {
       numDos.value++
       return
     }
@@ -70,7 +70,7 @@ async function upDate() {
       numInjection.value++
       return
     }
-    if (element.includes("Signature::RESET") || element.includes("ModbusCovertChannels::Potential_Covert_Channel")
+    if (element.includes("Signature::RESET") || element.includes("ModbusCovertChannels::Potential_Covert_Channel") || element.includes("ModbusDetection::FUNCTION")
       || element.includes("ModbusDetection::IP_STRANGER")) {
       numVulnerable.value++
       return
@@ -79,10 +79,8 @@ async function upDate() {
 
 
   totalElement.value = rows.value.length
-  data.value = parseLog.GetData(fields.value, rows.value, pageSize.value * (currentPage.value - 1), pageSize.value * currentPage.value).map(element => {
+  data.value = parseLog.GetData(fields.value, rows.value, pageSize.value * (currentPage.value - 1), pageSize.value * currentPage.value).filter(e => e.ts).map(element => {
     element.time = new Date(parseFloat(element.ts) * 1000).toLocaleString()
-    element.src = `${element["id.orig_h"]}:${element["id.orig_p"]}`
-    element.dst = `${element["id.resp_h"]}:${element["id.resp_p"]}`
     return element
   });
 
@@ -93,7 +91,7 @@ async function upDate() {
 .pulser {
   width: 20px;
   height: 20px;
-  background: rebeccapurple;
+  background: rgb(255, 0, 0);
   border-radius: 50%;
   position: relative;
 }
